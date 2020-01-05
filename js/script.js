@@ -8,6 +8,13 @@ searchButton.addEventListener('click', (event) => {
     searchDadJokes();
 });
 
+
+function getRandomEmojis() {
+    const emojis = ['😂','😝', '🤣','😹','🙈','😆','🙄','🤪'];
+    return randomEmoji = emojis[Math.floor(Math.random()*emojis.length)];
+}
+
+
 function searchDadJokes() {
     const uri = `https://icanhazdadjoke.com/search?term=${inputValue.value}`;
     const loading = document.querySelector('#loading');
@@ -24,11 +31,9 @@ function searchDadJokes() {
     .then(data => {
         data.results.forEach(result => {
             const dadJoke = document.querySelector('.jokes');
-            const emojis = ['😂','😝', '🤣','😹','🙈','😆','🙄','🤪'];
-            const randomEmoji = emojis[Math.floor(Math.random()*emojis.length)];
             let jokeHTML = `
                 <div class="joke">
-                    <h2 id${result.id}>${result.joke} ${randomEmoji}</h2>
+                    <h2 id${result.id}>${result.joke} ${getRandomEmojis()}</h2>
                 </div>
             `;
             dadJoke.insertAdjacentHTML('afterbegin', jokeHTML);
@@ -55,12 +60,10 @@ function fetchDadJokes() {
     .then(data => {
         loading.setAttribute('hidden', '');
         const {id, joke} = data;
-        const emojis = ['😂','😝', '🤣','😹','🙈','😆','🙄','🤪'];
-        const randomEmoji = emojis[Math.floor(Math.random()*emojis.length)];
         const dadJoke = document.querySelector('.jokes');
         const dadJokeHTML = `
         <div class="joke">
-        <h2 id=${id}>${joke} ${randomEmoji}</h2>
+        <h2 id=${id}>${joke} ${getRandomEmojis()}</h2>
         </div>
         `;
         dadJoke.insertAdjacentHTML('afterbegin', dadJokeHTML);
