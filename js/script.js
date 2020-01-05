@@ -1,10 +1,11 @@
-const inputValue = document.querySelector('#search-joke');
+const searchField = document.querySelector('#search-joke');
 let jokes = document.querySelector('.jokes');
 
-const searchButton = document.querySelector('[type="submit"]');
-searchButton.addEventListener('click', (event) => {
-    jokes.innerHTML = '';
+// const searchButton = document.querySelector('[type="submit"]')
+
+searchField.addEventListener('keyup', (event) => {
     event.preventDefault();
+    jokes.innerHTML = '';
     searchDadJokes();
 });
 
@@ -16,7 +17,7 @@ function getRandomEmojis() {
 
 
 function searchDadJokes() {
-    const uri = `https://icanhazdadjoke.com/search?term=${inputValue.value}`;
+    const uri = `https://icanhazdadjoke.com/search?term=${searchField.value}`;
     const loading = document.querySelector('#loading');
     let header = new Headers();
     header.append('Accept', 'application/json');
@@ -31,9 +32,10 @@ function searchDadJokes() {
     .then(data => {
         data.results.forEach(result => {
             const dadJoke = document.querySelector('.jokes');
+            const {id, joke} = result;
             let jokeHTML = `
                 <div class="joke">
-                    <h2 id${result.id}>${result.joke} ${getRandomEmojis()}</h2>
+                    <h2 id=${id}>${joke} ${getRandomEmojis()}</h2>
                 </div>
             `;
             dadJoke.insertAdjacentHTML('afterbegin', jokeHTML);

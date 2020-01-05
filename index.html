@@ -14,9 +14,14 @@
       </h1>
     </header>
     <main>
-      <form action="" method="get">
-        <input type="search" name="search-joke" id="search-joke" />
-        <input type="submit" value="Search" />
+      <form method="get">
+        <label for="search-joke">Enter a keyword</label>
+        <input
+          type="search"
+          name="search-joke"
+          id="search-joke"
+          placeholder="coffee"
+        />
       </form>
       <div hidden id="loading"></div>
       <div class="jokes"></div>
